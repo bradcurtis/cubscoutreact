@@ -1,39 +1,28 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+
 module.exports = {
-  entry: [
-    './src/index.js'
-  ],
-  output: {
-    path: __dirname,
-    publicPath: '/',
-    filename: 'bundle.js'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader"
-        }
-      },
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader",
-            options: {
-              modules: true,
-              importLoaders: 1,
-              localIdentName: "[name]_[local]_[hash:base64]",
-              sourceMap: true,
-              minimize: true
+    mode: 'development',
+    resolve: {
+        extensions: ['.js', '.jsx']
+    },
+    module: {
+        rules: [
+            {
+                test: /\.jsx?$/,
+                loader: 'babel-loader'
             }
-          }
         ]
-      }
-    ]
-  }
-};
+    },
+    plugins: [new HtmlWebpackPlugin({
+        template: './src/index.html'
+    })],
+    devServer: {
+        historyApiFallback: true
+    },
+    externals: {
+        // global app config object
+        config: JSON.stringify({
+            apiUrl: 'http://localhost:4000'
+        })
+    }
+}
