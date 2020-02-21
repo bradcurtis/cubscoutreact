@@ -8,7 +8,7 @@ app.use(express.static(__dirname));
 
 // send the user to index html page inspite of the url
 router.get('/', (req, res) => {
-  res.sendfile(path.join(__dirname, './dist', 'index.html'));
+  res.sendfile(path.join(__dirname, 'dist', 'index.html'));
 });
 
 app.use('/', router);
