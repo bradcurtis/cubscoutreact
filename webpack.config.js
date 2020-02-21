@@ -1,7 +1,15 @@
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require("path")
 
 module.exports = {
     mode: 'development',
+    entry:  path.resolve(__dirname,'src'),
+    output:{
+      path: path.resolve(__dirname,'dist'),
+      filename: 'bundle.js',
+      publicPath:'/'
+
+    },
     resolve: {
         extensions: ['.js', '.jsx']
     },
@@ -14,7 +22,9 @@ module.exports = {
         ]
     },
     plugins: [new HtmlWebpackPlugin({
-        template: './src/index.html'
+      hash: true,
+      filename: 'index.html',
+      template: __dirname + '/index.html'
     })],
     devServer: {
         historyApiFallback: true
@@ -22,7 +32,7 @@ module.exports = {
     externals: {
         // global app config object
         config: JSON.stringify({
-            apiUrl: 'http://localhost:8080'
+            apiUrl: 'http://localhost:8080/dist/index.html'
         })
     }
 }
